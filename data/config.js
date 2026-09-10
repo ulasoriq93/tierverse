@@ -1,11 +1,12 @@
 const APP = {
   name: 'Tierverse',
-  version: '1.3.5',
+  version: '1.3.6.3',
   storageKey: 'tierverse:v1',
   maxHistory: 60,
   maxImageBytes: 8 * 1024 * 1024,
+  maxCoverImageBytes: 2 * 1024 * 1024,
   maxImageDimension: 960,
-  maxShareUrl: 60000,
+  maxShareUrl: 8000,
   shareParam: 'share',
   categories: ['Games','Movies & TV','Music','Sports','Food','Tech','Books','People','Places','Other'],
   tierPresets: [

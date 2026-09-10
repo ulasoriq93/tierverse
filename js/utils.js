@@ -13,9 +13,16 @@ function downloadBlob(blob,name){const a=document.createElement('a');a.href=URL.
 function slugify(s){return String(s||'tier-list').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,64)||'tier-list'}
 function encodeShare(obj){const json=JSON.stringify(obj);const bytes=new TextEncoder().encode(json);let str='';bytes.forEach(b=>str+=String.fromCharCode(b));return btoa(str).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
 function decodeShare(s){s=String(s||'').replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';const bin=atob(s);const bytes=Uint8Array.from(bin,c=>c.charCodeAt(0));return JSON.parse(new TextDecoder().decode(bytes))}
+
+function bytesToBase64Url(bytes){let bin='';const chunk=0x8000;for(let i=0;i<bytes.length;i+=chunk)bin+=String.fromCharCode(...bytes.subarray(i,i+chunk));return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function base64UrlToBytes(s){s=String(s||'').replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';const bin=atob(s);return Uint8Array.from(bin,c=>c.charCodeAt(0))}
+async function gzipBytes(bytes){if(typeof CompressionStream==='undefined')return null;const stream=new Blob([bytes]).stream().pipeThrough(new CompressionStream('gzip'));return new Uint8Array(await new Response(stream).arrayBuffer())}
+async function gunzipBytes(bytes){if(typeof DecompressionStream==='undefined')throw new Error('Compressed share links are not supported by this browser.');const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));return new Uint8Array(await new Response(stream).arrayBuffer())}
+async function encodeShareCompact(obj){const raw=new TextEncoder().encode(JSON.stringify(obj));const zipped=await gzipBytes(raw);return zipped?'z.'+bytesToBase64Url(zipped):encodeShare(obj)}
+async function decodeShareAny(s){s=String(s||'');if(!s.startsWith('z.'))return decodeShare(s);const raw=await gunzipBytes(base64UrlToBytes(s.slice(2)));return JSON.parse(new TextDecoder().decode(raw))}
 async function imageFileToDataURL(file,maxBytes=8*1024*1024,maxDim=720){
  if(!file||!/^image\//.test(file.type))throw new Error('Choose an image file.');
- if(file.size>maxBytes)throw new Error('Image is too large. Choose one under 8 MB.');
+ if(file.size>maxBytes){const limit=Math.max(1,Math.round(maxBytes/1024/1024));throw new Error(`Image is too large. Choose one under ${limit} MB.`);}
  const src=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej(new Error('Could not read image.'));r.readAsDataURL(file)});
  const img=await new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=()=>rej(new Error('Could not decode image.'));i.src=src});
  const scale=Math.min(1,maxDim/Math.max(img.width,img.height));const w=Math.max(1,Math.round(img.width*scale)),h=Math.max(1,Math.round(img.height*scale));
