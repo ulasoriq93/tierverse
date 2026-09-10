@@ -54,3 +54,22 @@
 - Editing `data/config.js` or any file under `js/` only requires Save + browser refresh.
 - Service-worker precache now targets the source files instead of `app.bundle.js`.
 - No product features or UI behavior were intentionally changed in this release.
+
+
+## v1.3.5 Feedback Patch
+- Added per-list **Lock tier order** toggle; existing lists default to locked.
+- When unlocked, tier rows expose up/down reorder controls. Reordering is one undoable list mutation and does not fake item moves.
+- Added **Fit / Fill** cover display mode. Fit is the default and preserves the whole image, including portrait artwork.
+- Game Night template top tier renamed from **Masterpiece** to **Peak**.
+- Long custom tier names now stay on one line with adaptive sizing/ellipsis instead of awkward word breaks.
+- Storage normalization migrates older saves with safe defaults for `lockTierOrder` and `coverMode`.
+
+### Automated checks run for v1.3.5
+- `node --check` passed for config and every JavaScript source file.
+- Old-list migration passed: missing `lockTierOrder` => `true`, missing `coverMode` => `fit`.
+- Explicit unlocked + fill values survive normalization; invalid cover modes fall back safely.
+- Game Night template top tier verified as `Peak`.
+- UI fragment render verified `cover-fit`, adaptive long tier names, and unlocked reorder controls.
+- Tier reorder behavior verified: unlocked tiers move, locked tiers refuse movement.
+- Direct-source script references verified; no bundle reference returned.
+- All core app/PWA assets returned HTTP 200 from a localhost smoke server.

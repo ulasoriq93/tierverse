@@ -1,6 +1,6 @@
 const APP = {
   name: 'Tierverse',
-  version: '1.3.4',
+  version: '1.3.5',
   storageKey: 'tierverse:v1',
   maxHistory: 60,
   maxImageBytes: 8 * 1024 * 1024,
@@ -19,7 +19,7 @@ const APP = {
     { id:'classic', name:'Classic S–D', description:'The familiar five-tier setup.', category:'Other', accent:'#8b5cf6', tiers:[
       {name:'S',color:'#ff5d73'},{name:'A',color:'#ff9f43'},{name:'B',color:'#ffd166'},{name:'C',color:'#6ee7b7'},{name:'D',color:'#60a5fa'}]},
     { id:'games', name:'Game Night', description:'Built for games, releases and backlogs.', category:'Games', accent:'#5b8cff', tiers:[
-      {name:'Masterpiece',color:'#ff5d73'},{name:'Great',color:'#ff9f43'},{name:'Good',color:'#ffd166'},{name:'Mixed',color:'#6ee7b7'},{name:'Skip',color:'#60a5fa'}]},
+      {name:'Peak',color:'#ff5d73'},{name:'Great',color:'#ff9f43'},{name:'Good',color:'#ffd166'},{name:'Mixed',color:'#6ee7b7'},{name:'Skip',color:'#60a5fa'}]},
     { id:'screen', name:'Screen Test', description:'Movies, series and episodes.', category:'Movies & TV', accent:'#d45cff', tiers:[
       {name:'All-Timer',color:'#ff5d73'},{name:'Excellent',color:'#ff9f43'},{name:'Worth It',color:'#ffd166'},{name:'Fine',color:'#6ee7b7'},{name:'Not For Me',color:'#60a5fa'}]},
     { id:'music', name:'On Repeat', description:'Albums, songs and artists.', category:'Music', accent:'#ff6f91', tiers:[

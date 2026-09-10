@@ -1,4 +1,4 @@
-const CACHE='tierverse-v1.3.4-source';
+const CACHE='tierverse-v1.3.5';
 const ASSETS=['./','./index.html','./css/styles.css','./data/config.js','./js/utils.js','./js/icons.js','./js/storage.js','./js/analytics.js','./js/ui.js','./js/share.js','./js/app.js','./manifest.webmanifest','./assets/favicon.svg','./assets/icons/icon-192.png','./assets/icons/icon-512.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));

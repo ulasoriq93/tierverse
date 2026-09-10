@@ -80,3 +80,14 @@
 @media(max-width:420px){.bulk-toolbar .btn,.bulk-move-label{flex-basis:100%}}
 .item-quick{position:absolute;left:7px;bottom:7px;display:flex;gap:4px;z-index:4;opacity:0;transform:translateY(3px);transition:.15s ease}.item-card:hover .item-quick,.item-card:focus-within .item-quick{opacity:1;transform:none}.item-quick button{width:23px;height:23px;border:1px solid rgba(255,255,255,.18);border-radius:7px;background:rgba(7,10,15,.72);color:#fff;display:grid;place-items:center;line-height:0;cursor:pointer}.item-quick button:hover{background:rgba(20,25,35,.9)}.item-quick button:disabled{opacity:.28;cursor:not-allowed}
 @media(hover:none){.item-quick{opacity:1;transform:none}}
+
+
+/* v1.3.5 feedback patch */
+.list-card .card-cover{background-size:cover,var(--cover-size,cover);background-repeat:no-repeat;background-position:center,center;background-color:color-mix(in srgb,var(--list-accent) 10%,var(--panel))}
+.list-card.cover-fit{--cover-size:contain}.list-card.cover-fill{--cover-size:cover}
+.editor-hero .hero-cover{background-size:cover,var(--hero-cover-size,cover);background-repeat:no-repeat;background-position:center,center;background-color:color-mix(in srgb,var(--list-accent) 9%,var(--panel))}
+.editor-hero.cover-fit{--hero-cover-size:contain}.editor-hero.cover-fill{--hero-cover-size:cover}
+.tier-name{display:block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.05}
+.tier-name-long{font-size:.78em;letter-spacing:-.7px}.tier-name-xlong{font-size:.64em;letter-spacing:-.45px}
+.tier-controls .icon-btn:disabled{opacity:.22;cursor:not-allowed}
+@media(max-width:760px){.tier-name-long{font-size:.72em}.tier-name-xlong{font-size:.59em}}
